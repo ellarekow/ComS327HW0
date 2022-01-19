@@ -4,7 +4,7 @@ COM S 327, Spring 2022
 Programming Project 0
 The Knight’s Tour
 
-See this Wikipedia article about the Knight’s Tour problem: http://en.wikipedia.org/wiki/Knight%27s tour.
+See this Wikipedia article about the Knight’s Tour problem: https://en.wikipedia.org/wiki/Knight%27s_tour.
 Finding all directed, open tours on a standard, 8 × 8 chessboard is computationally intractable. To find
 them all on a 7 × 7 board in reasonable time would require a supercomputer. My quick-and-dirty solution
 finds all 6 × 6 solutions in about 2 hours and all 5 × 5 tours in under a second on a laptop.
