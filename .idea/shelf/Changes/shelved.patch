@@ -1,0 +1,276 @@
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+new file mode 100644
+--- /dev/null	(date 1642645544721)
++++ b/.idea/modules.xml	(date 1642645544721)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/ComS327HW0.iml" filepath="$PROJECT_DIR$/ComS327HW0.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+new file mode 100644
+--- /dev/null	(date 1642645544748)
++++ b/.idea/misc.xml	(date 1642645544748)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
++    <output url="file://$PROJECT_DIR$/out" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1642645694569)
++++ b/.idea/vcs.xml	(date 1642645694569)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+new file mode 100644
+--- /dev/null	(date 1642645551304)
++++ b/.idea/.gitignore	(date 1642645551304)
+@@ -0,0 +1,8 @@
++# Default ignored files
++/shelf/
++/workspace.xml
++# Editor-based HTTP Client requests
++/httpRequests/
++# Datasource local storage ignored files
++/dataSources/
++/dataSources.local.xml
+Index: src/knightTour.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/knightTour.java b/src/knightTour.java
+new file mode 100644
+--- /dev/null	(date 1642645714367)
++++ b/src/knightTour.java	(date 1642645714367)
+@@ -0,0 +1,194 @@
++// Java program for Knight Tour problem
++class knightTour {
++    static int N = 8;
++
++    /* A utility function to check if i,j are
++       valid indexes for N*N chessboard */
++    static boolean isSafe(int x, int y, int sol[][])
++    {
++        return (x >= 0 && x < N && y >= 0 && y < N
++                && sol[x][y] == -1);
++    }
++
++    /* A utility function to print solution
++       matrix sol[N][N] */
++    static void printSolution(int sol[][])
++    {
++        for (int x = 0; x < N; x++) {
++            for (int y = 0; y < N; y++)
++                System.out.print(sol[x][y] + " ");
++            System.out.println();
++        }
++    }
++
++    /* This function solves the Knight Tour problem
++       using Backtracking.  This  function mainly
++       uses solveKTUtil() to solve the problem. It
++       returns false if no complete tour is possible,
++       otherwise return true and prints the tour.
++       Please note that there may be more than one
++       solutions, this function prints one of the
++       feasible solutions.  */
++    static boolean solveKT()
++    {
++        int sol[][] = new int[8][8];
++
++        /* Initialization of solution matrix */
++        for (int x = 0; x < N; x++)
++            for (int y = 0; y < N; y++)
++                sol[x][y] = -1;
++ 
++        /* xMove[] and yMove[] define next move of Knight.
++           xMove[] is for next value of x coordinate
++           yMove[] is for next value of y coordinate */
++        int xMove[] = { 2, 1, -1, -2, -2, -1, 1, 2 };
++        int yMove[] = { 1, 2, 2, 1, -1, -2, -2, -1 };
++
++        // Since the Knight is initially at the first block
++        sol[0][0] = 0;
++ 
++        /* Start from 0,0 and explore all tours using
++           solveKTUtil() */
++        if (!solveKTUtil(0, 0, 1, sol, xMove, yMove)) {
++            System.out.println("Solution does not exist");
++            return false;
++        }
++        else
++            printSolution(sol);
++
++        return true;
++    }
++
++    /* A recursive utility function to solve Knight
++       Tour problem */
++    static boolean solveKTUtil(int x, int y, int movei,
++                               int sol[][], int xMove[],
++                               int yMove[])
++    {
++        int k, next_x, next_y;
++        if (movei == N * N)
++            return true;
++ 
++        /* Try all next moves from the current coordinate
++            x, y */
++        for (k = 0; k < 8; k++) {
++            next_x = x + xMove[k];
++            next_y = y + yMove[k];
++            if (isSafe(next_x, next_y, sol)) {
++                sol[next_x][next_y] = movei;
++                if (solveKTUtil(next_x, next_y, movei + 1,
++                        sol, xMove, yMove))
++                    return true;
++                else
++                    sol[next_x][next_y]
++                            = -1; // backtracking
++            }
++        }
++
++        return false;
++    }
++
++    /* Driver Code */
++    public static void main(String args[])
++    {
++        // Function Call
++        solveKT();
++    }
++}// Java program for Knight Tour problem
++class KnightTour {
++    static int N = 8;
++
++    /* A utility function to check if i,j are
++       valid indexes for N*N chessboard */
++    static boolean isSafe(int x, int y, int sol[][])
++    {
++        return (x >= 0 && x < N && y >= 0 && y < N
++                && sol[x][y] == -1);
++    }
++
++    /* A utility function to print solution
++       matrix sol[N][N] */
++    static void printSolution(int sol[][])
++    {
++        for (int x = 0; x < N; x++) {
++            for (int y = 0; y < N; y++)
++                System.out.print(sol[x][y] + " ");
++            System.out.println();
++        }
++    }
++
++    /* This function solves the Knight Tour problem
++       using Backtracking.  This  function mainly
++       uses solveKTUtil() to solve the problem. It
++       returns false if no complete tour is possible,
++       otherwise return true and prints the tour.
++       Please note that there may be more than one
++       solutions, this function prints one of the
++       feasible solutions.  */
++    static boolean solveKT()
++    {
++        int sol[][] = new int[8][8];
++
++        /* Initialization of solution matrix */
++        for (int x = 0; x < N; x++)
++            for (int y = 0; y < N; y++)
++                sol[x][y] = -1;
++
++        /* xMove[] and yMove[] define next move of Knight.
++           xMove[] is for next value of x coordinate
++           yMove[] is for next value of y coordinate */
++        int xMove[] = { 2, 1, -1, -2, -2, -1, 1, 2 };
++        int yMove[] = { 1, 2, 2, 1, -1, -2, -2, -1 };
++
++        // Since the Knight is initially at the first block
++        sol[0][0] = 0;
++
++        /* Start from 0,0 and explore all tours using
++           solveKTUtil() */
++        if (!solveKTUtil(0, 0, 1, sol, xMove, yMove)) {
++            System.out.println("Solution does not exist");
++            return false;
++        }
++        else
++            printSolution(sol);
++
++        return true;
++    }
++
++    /* A recursive utility function to solve Knight
++       Tour problem */
++    static boolean solveKTUtil(int x, int y, int movei,
++                               int sol[][], int xMove[],
++                               int yMove[])
++    {
++        int k, next_x, next_y;
++        if (movei == N * N)
++            return true;
++
++        /* Try all next moves from the current coordinate
++            x, y */
++        for (k = 0; k < 8; k++) {
++            next_x = x + xMove[k];
++            next_y = y + yMove[k];
++            if (isSafe(next_x, next_y, sol)) {
++                sol[next_x][next_y] = movei;
++                if (solveKTUtil(next_x, next_y, movei + 1,
++                        sol, xMove, yMove))
++                    return true;
++                else
++                    sol[next_x][next_y]
++                            = -1; // backtracking
++            }
++        }
++
++        return false;
++    }
++
++    /* Driver Code */
++    public static void main(String args[])
++    {
++        // Function Call
++        solveKT();
++    }
++}
++// This code is contributed by Abhishek Shankhadhar on Geeksforgeeks.com
+\ No newline at end of file
