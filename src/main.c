@@ -23,7 +23,8 @@ void printBoard(int sol[SIZE][SIZE]){
 
 void printSolution(int sol[SIZE * SIZE]){
     fprintf(fileprinter, "%d", sol[0]);
-    for(int i = 1; i < (SIZE * SIZE); i++){
+    int i;
+    for(i = 1; i < (SIZE * SIZE); i++){
         fprintf(fileprinter, ",%d", sol[i]);
     }
     fprintf(fileprinter, "\n");
